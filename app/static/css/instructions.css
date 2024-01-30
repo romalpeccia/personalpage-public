@@ -1,0 +1,71 @@
+.plugin-screenshot{
+    
+}
+
+#instructions_container{
+    display:flex;
+    margin: auto;
+    width: 100%;
+    height: 500px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#instructions_menu_buttons{
+    display:flex;
+    flex-direction: row;
+    height: 30px;
+    width: 100%;
+}
+
+
+.instructions_menu_choice{
+    font-size:0.9vw
+}
+.active_menu_choice{
+    border: 1px inset;
+}
+
+#instructions_menu_button-sequencer, #instructions_menu_button-tuplet{
+    background-color : #d900a6ad;
+    color : white;
+    text-shadow: 1px 1px black;
+}
+#instructions_menu_button-params, #instructions_menu_button-polyrhythm {
+    background-color: #7cba00be;
+    color:white;
+    text-shadow: 1px 1px black;
+
+}
+#instructions_menu_button-options, #instructions_menu_button-polymeter{
+    background-color: #cc2647cb;
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+.li{
+    color:white
+}
+.instructions_textbox{
+    display : "none";
+    height : auto;
+    min-height: 400px;
+    width : 93%;
+    
+}
+.instructions-p{
+    text-shadow: 1px 1px black;
+}
+
+#sequencer_text, #tuplet_text{
+    background-color: #d900a6ad ;
+    color:white;
+}
+#sequencer_parameters_text, #polyrhythm_text{
+    background-color: #7cba00be;
+    color:white;
+}
+#polygnome_options_text, #polymeter_text{
+    background-color: #cc2647cb;
+    color:white;
+}

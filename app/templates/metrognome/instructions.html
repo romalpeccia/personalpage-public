@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<script>
+    function instructionMenuSelect(element){
+        var instructions = document.getElementsByClassName("instructions_textbox");
+        var menu_choice_buttons = document.getElementsByClassName("instructions_menu_choice");
+        var screenshots = document.getElementsByClassName("plugin-screenshot");
+        resetMenuColours(menu_choice_buttons);
+        for (let i = 0; i < instructions.length; i++) {
+            if (element.id == "instructions_menu_button-tuplet" && instructions[i].id == "tuplet_text"){
+                instructions[i].style.display = "block";
+                screenshots[i].style.display = "block";
+                menu_choice_buttons[i].classList.add("active_menu_choice");
+            }
+            else if (element.id == "instructions_menu_button-polyrhythm" && instructions[i].id == "polyrhythm_text"){
+                instructions[i].style.display = "block";
+                screenshots[i].style.display = "block";
+                menu_choice_buttons[i].classList.add("active_menu_choice");
+            }  
+            else if (element.id == "instructions_menu_button-polymeter" && instructions[i].id == "polymeter_text"){
+                instructions[i].style.display = "block";
+                screenshots[i].style.display = "block";
+                menu_choice_buttons[i].classList.add("active_menu_choice");
+            }
+            else{
+                instructions[i].style.display = "none";
+                screenshots[i].style.display = "none";
+            }
+        }
+    };
+    function resetMenuColours(menu_choice_buttons){
+        for (let i = 0; i < menu_choice_buttons.length; i++){
+            menu_choice_buttons[i].classList.remove("active_menu_choice"); 
+        }
+    }
+    function hideHiddenElements(){
+        var instructions = document.getElementsByClassName("instructions_textbox");
+        var screenshots = document.getElementsByClassName("plugin-screenshot");
+        for (let i = 0; i < instructions.length; i++) {
+            instructions[i].style.display = "none";
+            screenshots[i].style.display = "none";
+        }
+        instructions[0].style.display = "block";
+        screenshots[0].style.display = "block";
+    };
+    
+</script>
+    <body onload="hideHiddenElements()" >
+        <div id = "content_container" class = "container-fluid">
+            <div class = "row">
+                <div class = "col-md-2"></div>
+                <div class = "col-md-8">
+                    <h1>Instructions</h1>
+                    <hr>
+                    <div class = "well">
+                        <p>The MetroGnome is a metronome which helps you practice odd rhythms.</p>
+                        <p>In <strong>Tuplet</strong> mode, you can add clicks to subdivide each beat from 2-16 subdivisions</p>
+                        <p>With <strong>PolyRhythm</strong> mode, you can have two seperate metronomes playing at once, with each dividing the bar into different divisions. </p>
+                    </div>
+                    <h3> Usage</h3>
+                    <hr>
+                    <div class = "well">
+                        <p>The MetroGnome can be run as a VST in your Digital Audio Workstation and syncs with your DAW's tempo. It can also be run as a standalone application.</p>
+                    </div>
+ 
+                </div>
+                <div class = "col-md-2"></div>
+            </div>
+
+            <div class = "row">
+                <div class =  "col-md-1"></div>
+                <div class =  "col-md-4">
+                    <div id = "instructions_container" class = "container">
+                        <div  id = "instructions_menu_buttons" class = "row btn-group container">
+                            <button class = "instructions_menu_choice col-md-4 active_menu_choice " id = "instructions_menu_button-tuplet"  onclick="instructionMenuSelect(this)">Tuplet </button>
+                            <button class = "instructions_menu_choice col-md-4" id = "instructions_menu_button-polyrhythm" onclick="instructionMenuSelect(this)">PolyRhythm </button>
+                            <button class = "instructions_menu_choice col-md-4" id = "instructions_menu_button-polymeter" onclick="instructionMenuSelect(this)">PolyMeter </button>
+                        </div>
+                        <div id = "instructions_text_container" class = "row">
+                            <div class = "instructions_textbox well" id = "tuplet_text">
+                                
+                                    <p class="instructions-p"><strong>Tuplet</strong> mode is like your standard metronome, but with the added option to subdivide each beat into tuplets</p>
+                                    <p class="instructions-p">The tuplet can be anywhere from 2 to 8 subdivisions of the beat </p>
+                                    <p class="instructions-p">You can also specify the amount of beats before the metronome plays a unique tick to signal a new bar.</p>
+                                
+                            </div>
+                            <div class = "instructions_textbox well" id = "polyrhythm_text"> 
+                                
+                                    <p class="instructions-p"><strong>Polyrhythm</strong> mode allows you play two rhythms at the same time, with each rhythm dividing the bar into different subdivsions </p>
+                                    <p class="instructions-p">A unique click will play when both rhythms hit a beat at the exact same time.</p>
+                                   
+                            </div>
+                            <div class = "instructions_textbox well" id = "polymeter_text">
+                                
+                                    <p class="instructions-p"><strong>PolyMeter</strong> mode is currently in development </p>
+                                    <p class="instructions-p">With PolyMeter mode, you will be able to run two metronomes at the same time, each with their own time signature </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-md-6">
+                    <img src = "/static/img/metrognome-screenshot-tuplet.png" class = "plugin-screenshot" id ="screenshot-tuplet">
+                    <img src = "/static/img/metrognome-screenshot-polyrhythm.png" class = "plugin-screenshot" id = "screenshot-polyrhythm">
+                    <img src = "/static/img/metrognome-screenshot-polymeter.png" class = "plugin-screenshot" id = "screenshot-polymeter">
+                </div>
+                <div class =  "col-md-1"></div>
+            </div>
+        </div>
+    </body>
+{% endblock %}

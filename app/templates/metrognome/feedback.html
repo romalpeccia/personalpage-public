@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+    <div id = "content_container" class = "container-fluid">
+        <div class ="col-md-2"></div>
+        <div class ="col-md-8">
+                <div class="row">
+                    <div class="col-md-3 well">
+                        <h1>Submit Feedback</h1>
+                        <hr>
+                        {{ wtf.quick_form(form) }}
+                    </div>
+                </div>
+            <div class = "row">
+                {% if savedFeedback != None %}
+                    {% for currentFeedback in savedFeedback %}
+                        <div class = "col-md-3">
+                            <dl class = "feedbackBlock well">
+                                <dt>Plugin:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</dt>
+                                <dd>{{currentFeedback.pluginName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{currentFeedback.timestamp.strftime("%m/%d/%Y")}}</dd>
+                                <dt>DAW</dt>
+                                <dd>{{currentFeedback.daw}}</dd>
+                                <dt>{{form.q1Text}}</dt>
+                                <dd>{{currentFeedback.answer1}}</dd>
+                                <dt>{{form.q2Text}}</dt>
+                                <dd>{{currentFeedback.answer2}}</dd>
+                                <dt>{{form.q3Text}}</dt>
+                                <dd>{{currentFeedback.answer3}}</dd>
+                                <dt>{{form.q4Text}}</dt>
+                                <dd>{{currentFeedback.answer4}}</dd>
+                            </dl>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class ="col-md-2"></div>
+    </div>
+{% endblock %}

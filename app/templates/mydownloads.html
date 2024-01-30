@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script>
+
+    </script>
+    <div id = "content_container">
+        <div class ="col-md-2"></div>
+        <div class ="col-md-8">
+            <div class = "col-md-5">
+                <h1>Downloaded Plugins</h1>
+                <hr>
+                <p class = "alt-text">Downloads for {{current_user.email}}</p>
+
+                {% if downloads != None %}
+                    {% for download in downloads %}
+                    <div class = "well row" >
+                        <div class = "col-md-3">
+                            {% if download.pluginName == "PolyGnome" %}
+                                <img src="{{ url_for('static', filename='img/metrognome-logo-big.png') }}"> 
+                            {% elif download.pluginName == "MetroGnome" %}
+                                <img src="{{ url_for('static', filename='img/polygnome-logo-big.png') }}">
+                            {% endif %}
+                        </div>
+                        <div class = "col-md-6">
+                            <h3>{{download.pluginName}}</h3>
+                            {% if download.pluginName == "PolyGnome" %}
+                                <p class = "">You have donated <strong>${{mgnome_total}}</strong> USD</p>
+                            {% elif download.pluginName == "MetroGnome" %}
+                                <p class = "">You have donated <strong>${{pgnome_total}}</strong> USD</p>
+                            {% endif %}
+                        </div>
+                        <div style = "float:right;" class = col-md-3>
+                            {% if download.pluginName == "PolyGnome" %}
+                                <a href={{"/polygnome/instructions"}}> Instructions</a>
+                                <a href={{"/polygnome/feedback"}}> Feedback</a>
+                                <a href={{"/polygnome/download"}}> Download</a>    
+                            {% elif download.pluginName == "MetroGnome" %}
+                                <a href={{"/metrognome/instructions"}}> Instructions</a>
+                                <a href={{"/metrognome/feedback"}}> Feedback</a>
+                                <a href={{"/metrognome/download"}}> Download</a>    
+                            {% endif %}
+                            <div class = "row" style = "float:right;">
+                                <span> 
+                                    <input type="checkbox" id="updateSignupSelector"   {% if download.updateSignup == True %}  checked {% endif %}">
+                                    <p>Send me updates</p> 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

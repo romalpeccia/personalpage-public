@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<script>
+    function instructionMenuSelect(element){
+        var instructions = document.getElementsByClassName("instructions_textbox");
+        var menu_choice_buttons = document.getElementsByClassName("instructions_menu_choice");
+        resetMenuColours(menu_choice_buttons);
+        for (let i = 0; i < instructions.length; i++) {
+            if (element.id == "instructions_menu_button-sequencer" && instructions[i].id == "sequencer_text"){
+                instructions[i].style.display = "block";
+                menu_choice_buttons[i].classList.add("active_menu_choice");
+            }
+            else if (element.id == "instructions_menu_button-params" && instructions[i].id == "sequencer_parameters_text"){
+                instructions[i].style.display = "block";
+                menu_choice_buttons[i].classList.add("active_menu_choice");
+            }  
+            else if (element.id == "instructions_menu_button-options" && instructions[i].id == "polygnome_options_text"){
+                instructions[i].style.display = "block";
+                menu_choice_buttons[i].classList.add("active_menu_choice");
+            }
+            else{
+                instructions[i].style.display = "none";
+            }
+        }
+    };
+    function resetMenuColours(menu_choice_buttons){
+        for (let i = 0; i < menu_choice_buttons.length; i++){
+            menu_choice_buttons[i].classList.remove("active_menu_choice"); 
+        }
+    }
+    function hideHiddenElements(){
+        var instructions = document.getElementsByClassName("instructions_textbox");
+        for (let i = 0; i < instructions.length; i++) {
+            instructions[i].style.display = "none";
+        }
+        instructions[0].style.display = "block";
+    };
+    
+</script>
+    <body onload="hideHiddenElements()" >
+        <div id = "content_container" class = "container-fluid">
+            <div class = "row">
+                <div class = "col-md-2"></div>
+                <div class = "col-md-8">
+                    <h1>Instructions</h1>
+                    <hr>
+                    <div class = "well"> 
+                        <p>The PolyGnome is a VST3 Sequencer Plugin which helps music producers generate polyrhythms within their Digital Audio Workstation</p>
+                        <p>The process of experimenting and implementing complex polyrhythms within DAWs is complex, and PolyGnome aims to simplify this</p>
+                        <p>With PolyGnome, you can easily visualize, create, and edit 12 simultaneous 8-bar MIDI sequences, where each sequence in each bar is subdivided into 1-16 subdivisions</p>
+                        <p>Each beat of each subdivision sequence can be individually toggled to add space to your rhythm</p>
+                        <p>Finally! You'll never struggle to make a 16:15:14:13:12:11:10:9:8:7:6:5:4:3:2:1 polyrhythm again! (But please don't)</p>
+                        <p></p>
+                    </div>
+                    <h3> Setting Up</h3>
+                    <hr>
+                    <div class = "well">
+                        <p><b>0: </b>Add PolyGnome.vst to your DAW's VST folder.</p>
+                        <p><b>1: </b>Open two empty MIDI tracks in your DAW.</p>
+                        <p><b>2: </b>Add PolyGnome to track 1.</p>
+                        <p><b>3: </b>Route the output of track 1 to the input of track 2. </p>
+                        <p><b>4: </b>Arm track 2 for recording.</p>
+                        <p><b>5: </b>Add MIDI instrument of your choosing to track 2. </p>
+                    </div>
+                    <h3> Usage</h3>
+                    <hr>
+                </div>
+                <div class = "col-md-2"></div>
+            </div>
+
+            <div class = "row">
+                <div class =  "col-md-1"></div>
+                <div class =  "col-md-4">
+                    <div id = "instructions_container" class = "container">
+                        <div class = "row btn-group container" id = "instructions_menu_buttons">
+                            <button class = "instructions_menu_choice col-md-4 active_menu_choice " id = "instructions_menu_button-sequencer"  onclick="instructionMenuSelect(this)">Sequencer</button>
+                            <button class = "instructions_menu_choice col-md-4" id = "instructions_menu_button-params" onclick="instructionMenuSelect(this)">Sequencer Options</button>
+                            <button class = "instructions_menu_choice col-md-4" id = "instructions_menu_button-options" onclick="instructionMenuSelect(this)">PolyGnome Options</button>
+                        </div>
+                        <div id = "instructions_text_container" class = "row">
+                            <div class = "instructions_textbox well" id = "sequencer_text">
+                                
+                                    <p class = "instructions-p">Each of the 12 rows on the <strong>Sequencer</strong> represents 1 sequence, with each sequence having its own parameters.</p>
+                                    <p class = "instructions-p"> Each sequence contains up to 16 buttons, each representing a subdivided note of the bar. When pressed, the buttons turn on or off.</p>
+                                    <p class = "instructions-p"> While PolyGnome and your DAW are in "Play" mode, PolyGnome will export MIDI notes to your DAW based on your configuration of the Sequencer.</p>
+                                    <p class = "instructions-p"> You can create a loop of up to 8 bars worth of sequences, with each bar's sequences having their own parameters such as subdivisions. </p>
+                                
+                            </div>
+                            <div class = "instructions_textbox well" id = "sequencer_parameters_text"> 
+                                
+                                    <p class = "instructions-p">Each sequence has its own set of settings.</p>
+                                    <p class = "instructions-p">2: <strong>Mute button:</strong> temporarily turns off all MIDI notes for a given sequence.</p>
+                                    <p class = "instructions-p">3: <strong>Velocity slider:</strong> changes the velocity value of MIDI notes exported from 0-127</p>
+                                    <p class = "instructions-p">4: <strong>Sustain slider:</strong> changes the duration of the exported MIDI note from 0-100% of the subdivision duration</p>
+                                    <p class = "instructions-p">5: <strong>Subdivision slider:</strong> changes the amount of subdivisions for the sequence.</p>
+                                    <p class = "instructions-p">6: <strong>MIDI value sliders:</strong> the MIDI note that the sequence is exporting. This value can also be changed by clicking the text box and entering a valid MIDI string (A-1, C#5, G9, etc.) or integer (0-127), or by playing a MIDI note on your instrument. By default these values are set to 36-47, cooresponding to the first 12 samples of most Ableton drum racks.</p>
+                                    <p class = "instructions-p">7: <strong>MIDI Keyboard:</strong> Displays notes being played by PolyGnome</p>
+                                   
+                            </div>
+                            <div class = "instructions_textbox well" id = "polygnome_options_text">
+                                
+                                    <p class = "instructions-p">1: <strong>Play: </strong> Turns PolyGnome on or off.</p>
+                                    <p class = "instructions-p">2: <strong>Load Preset: </strong>Loads a .pgnome file and sets all of the sequencer buttons and values.</p>
+                                    <p class = "instructions-p">3: <strong>Save Preset: </strong>Saves a .pgnome file with all of PolyGnome's values, which can be reloaded by yourself or others.</p>
+                                    <p class = "instructions-p">4: <strong>Help Text: </strong>This area will display helpful text about any of PolyGnome's components when they are moused over.</p>
+                                    <p class = "instructions-p">5: <strong>Auto-Loop button: </strong>When selected, the view will change to the next bar when the currently viewed bar is done playing. </p>
+                                    <p class = "instructions-p">6: <strong>Bar Slider:</strong> Changes the number of bars in the loop. </p>
+                                    <p class = "instructions-p">7: <strong>Bar Select buttons:</strong> Changes which bar is currently being viewed. </p>
+                                    <p class = "instructions-p">8: <strong>Bar Copy buttons: </strong> Copies the settings of all sequences in the bar currently being viewed to another bar. </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-md-6">
+                    <img src = "/static/img/polygnome-screenshot-labels.jpg" class = "plugin-screenshot">
+                </div>
+                <div class =  "col-md-1"></div>
+            </div>
+            
+        </div>
+    </body>
+{% endblock %}

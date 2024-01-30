@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+
+  <!--
+  <script>  
+    var donationToggle = true;
+    function dontationBoolOnClick(){
+      var stripeButton = document.getElementById('stripe-buy-button');
+      var downloadArea = document.getElementById('download-area');
+      if (donationToggle == true){
+        stripeButton.style.display = "none";
+        downloadArea.style.display = "block"
+        donationToggle = false;
+      }
+      else{
+        stripeButton.style.display = "block";
+        downloadArea.style.display = "none"
+        donationToggle = true;
+      }
+    };
+  </script>
+  -->
+  <div id = "content_container" class = "container-fluid">
+    <div class ="col-md-2"></div>
+    <div class ="col-md-8">
+        <div class="row">
+              <div class="col-md-6 well">
+                <h1>Download PolyGnome</h1>
+                <hr>
+                <p>The PolyGnome is a VST3 Plugin which helps music producers generate polyrhythms within their Digital Audio Workstation.</p>
+                <p>The process of writing and implementing complex polyrhythms within DAWs is complex in itself, and PolyGnome aims to make this process easier.</p>
+                <hr>
+                {% if download == None %}
+                  {{ wtf.quick_form(form) }}
+                {% else %}
+                  
+                  <stripe-buy-button
+                    {% if DEBUG == True %}
+                      buy-button-id="buy_btn_1NTClcBhYtAFf8MQp5bKwFKz"
+                      publishable-key="pk_test_51NTC62BhYtAFf8MQ1lYkkTFW4zZnzJcLMQuBxNGm42zw6BzcczLdsXqdcnlXH31vxcNMTHKxbHwXRksrgqy17iQa00q0Ah6H3u"
+                    {% else %}
+                      buy-button-id="buy_btn_1NV5GSBhYtAFf8MQrzFA1Szu"
+                      publishable-key="pk_live_51NTC62BhYtAFf8MQ0uJR22fzclm7fF2qAJ2el3FpxJhxKA8a37QJlPkOioCwZTcL0MF5n2ArSXHmXsGQLUNa5vOj00zCf5t7u6"
+                    {% endif %}
+                    customer-email = {{current_user.email}}
+                    client-reference-id = {{current_user.id}}
+                    id = 'stripe-buy-button'
+                  ></stripe-buy-button>
+                  <div id = "download-area" >
+                    <button class = "btn"><a href = {{link}}>Download PolyGnome</a></button>
+                  </div>
+                {% endif %}
+                <!--
+                {% if amountDonated %}
+                    thank you for donating {{amountDonated}}
+                {% else %}
+                    <div id="paypal-button-container"></div>
+                {%endif%}
+                <script>
+                    function paymentOnChange(){
+                        if (document.getElementById('paymentAmount').value <= 0){
+                            document.getElementById("paypal-button-container").style.display = "none";
+                        }
+                        else{
+                            document.getElementById("paypal-button-container").style.display = "block";
+                        }
+                    }
+                    document.getElementById("paypal-button-container").style.display = "none";
+                    document.getElementById('paymentAmount').setAttribute("onchange", "paymentOnChange()");
+                </script>
+                -->
+              </div>
+
+          </div>
+    </div>
+    <div class ="col-md-2"></div>
+</div>
+
+
+{% endblock %}
+
+

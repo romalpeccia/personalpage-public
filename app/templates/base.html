@@ -1,0 +1,101 @@
+{% extends 'bootstrap/base.html' %}
+
+
+<head >
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block scripts %}
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="https://js.stripe.com/v3/buy-button.js"></script>
+
+    {% endblock %}
+    {% block styles %}
+        {{super()}} 
+
+        <link href= "{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+        <link href= "{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+        <link href= "{{ url_for('static', filename='css/style.css') }}" rel = stylesheet  type= "text/css">
+        <link href= "{{ url_for('static', filename='css/instructions.css') }}" rel="stylesheet">
+        <link href= "{{ url_for('static', filename='css/feedback.css') }}" rel="stylesheet">
+    {% endblock %}
+</head> 
+{% block title %}
+RPAS
+    {% if title %}
+        - {{ title }} 
+        {% if subtitle %}
+            - {{  subtitle }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block navbar %}
+
+
+    <nav id = "navbar_container" class="navbar_container navbar-fixed-top " >
+        <div class="container-fluid">
+
+            <div id = "navbar_header" class="navbar-header col-md-3">
+                <a class="navbar-brand title-link" href="/index">Romal Peccia Audio Software</a>
+            </div>
+            <div id = "navbar_left" class = "col-md-6">
+                <ul class="nav navbar-nav">
+                    <li {% if title == "Home" %} class="active " {% endif %}><a class="navbar-link" href="/index">Home</a></li>
+                    <li {% if title == "MetroGnome" %} class="dropdown active " {% else %} class="dropdown" {% endif %}>
+                        <a data-toggle="dropdown" href="#" class="navbar-link"><img src="{{ url_for('static', filename='img/metrognome-logo-inverted.png') }}"> MetroGnome
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li {% if title == "MetroGnome" and  subtitle == "Instructions" %} class="active " {% endif %}><a href="/metrognome/instructions">Instructions</a></li>
+                            <li {% if title == "MetroGnome" and  subtitle == "Feedback" %} class="active " {% endif %}><a href="/metrognome/feedback">Feedback</a></li>
+                            <li {% if title == "MetroGnome" and  subtitle == "Download" %} class="active " {% endif %}><a href="/metrognome/download">Download</a></li>
+                        </ul>
+                    </li>
+                    <li {% if title == "PolyGnome" %} class="dropdown active " {% else %} class="dropdown" {% endif %}>
+                        <a data-toggle="dropdown" href="#" class="navbar-link"><img src="{{ url_for('static', filename='img/polygnome-logo-inverted.png') }}"> PolyGnome
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li {% if title == "PolyGnome" and subtitle == "Instructions" %} class="active " {% endif %}><a href="/polygnome/instructions">Instructions</a></li>
+                            <li {% if title == "PolyGnome" and  subtitle == "Feedback" %} class="active " {% endif %}><a href="/polygnome/feedback">Feedback</a></li>
+                            <li {% if title == "PolyGnome" and  subtitle == "Download" %} class="active " {% endif %}><a href="/polygnome/download">Download</a></li>
+                            <li {% if title == "PolyGnome" and  subtitle == "Presets" %} class="active " {% endif %}><a href="/polygnome/presets">Presets</a></li>
+                        </ul>
+                    <!--<li {% if title == "About" %} class="active" {% endif %} ><a href="/about">About</a></li>-->
+                </ul>    
+            </div> 
+            <div id = "navbar_right" class = col-md-3 >  
+                <ul class="nav navbar-nav">
+                    {% if current_user.is_anonymous %}
+                        <li {% if subtitle == "Login" %} class="active" {% endif %}><a href="{{ url_for('login') }}" class="navbar-link">Login</a></li>
+                    {% else %}
+                        <li {% if subtitle == "My Downloads" %} class="active" {% endif %}><a href="/mydownloads" class="navbar-link">My Downloads</a></li>
+                        <li><a href="{{ url_for('logout') }}" class="navbar-link">Logout</a><li></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+
+        {% block alerts %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div id = "alert_container">
+                    {% for message in messages %}
+                        <div class="alert alert-info " role="alert" ><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+
+        {% endblock %}
+
+    </nav>
+
+
+
+
+
+
+{% endblock %}
+
